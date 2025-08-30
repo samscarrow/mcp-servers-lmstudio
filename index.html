@@ -13,17 +13,18 @@
         
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #1a1a2e 0%, #0f0f1e 100%);
             min-height: 100vh;
         }
         
         .header {
-            background: rgba(255, 255, 255, 0.95);
+            background: rgba(26, 26, 46, 0.98);
             padding: 20px 0;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 20px rgba(0,0,0,0.5);
             position: sticky;
             top: 0;
             z-index: 100;
+            border-bottom: 1px solid rgba(124, 105, 239, 0.2);
         }
         
         .header-content {
@@ -47,11 +48,12 @@
         
         .logo-text h1 {
             font-size: 1.8em;
-            color: #333;
+            color: #ffffff;
+            font-weight: 600;
         }
         
         .logo-text p {
-            color: #666;
+            color: #9ca3af;
             font-size: 0.9em;
         }
         
@@ -61,14 +63,14 @@
         }
         
         .nav-links a {
-            color: #666;
+            color: #9ca3af;
             text-decoration: none;
             font-weight: 500;
             transition: color 0.3s;
         }
         
         .nav-links a:hover {
-            color: #667eea;
+            color: #7c69ef;
         }
         
         .container {
@@ -86,12 +88,15 @@
         .hero h2 {
             font-size: 3em;
             margin-bottom: 20px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+            background: linear-gradient(135deg, #7c69ef 0%, #9b88ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
         
         .hero p {
             font-size: 1.3em;
-            opacity: 0.95;
+            color: #9ca3af;
             max-width: 600px;
             margin: 0 auto;
         }
@@ -104,16 +109,19 @@
         }
         
         .server-card {
-            background: white;
+            background: rgba(26, 26, 46, 0.8);
+            border: 1px solid rgba(124, 105, 239, 0.2);
             border-radius: 15px;
             padding: 30px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
-            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+            backdrop-filter: blur(10px);
         }
         
         .server-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+            box-shadow: 0 20px 60px rgba(124, 105, 239, 0.2);
+            border-color: rgba(124, 105, 239, 0.4);
         }
         
         .server-header {
@@ -129,7 +137,7 @@
         
         .server-title h3 {
             font-size: 1.4em;
-            color: #333;
+            color: #ffffff;
             margin-bottom: 5px;
         }
         
@@ -143,22 +151,22 @@
         }
         
         .badge-production {
-            background: #e6f7ff;
-            color: #1890ff;
+            background: rgba(124, 105, 239, 0.2);
+            color: #7c69ef;
         }
         
         .badge-beta {
-            background: #fff7e6;
+            background: rgba(250, 140, 22, 0.2);
             color: #fa8c16;
         }
         
         .badge-alpha {
-            background: #fff1f0;
+            background: rgba(245, 34, 45, 0.2);
             color: #f5222d;
         }
         
         .server-description {
-            color: #666;
+            color: #9ca3af;
             margin-bottom: 20px;
             line-height: 1.6;
         }
@@ -170,7 +178,7 @@
         
         .server-features li {
             padding: 8px 0;
-            color: #555;
+            color: #9ca3af;
             display: flex;
             align-items: center;
             gap: 10px;
@@ -178,7 +186,7 @@
         
         .server-features li:before {
             content: "✓";
-            color: #48bb78;
+            color: #7c69ef;
             font-weight: bold;
         }
         
@@ -202,7 +210,7 @@
         }
         
         .btn-primary {
-            background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+            background: linear-gradient(135deg, #7c69ef 0%, #9b88ff 100%);
             color: white;
             flex: 1;
             justify-content: center;
@@ -210,17 +218,19 @@
         
         .btn-primary:hover {
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(72, 187, 120, 0.4);
+            box-shadow: 0 5px 15px rgba(124, 105, 239, 0.4);
         }
         
         .btn-secondary {
-            background: #f0f0f0;
-            color: #666;
+            background: rgba(124, 105, 239, 0.1);
+            color: #9ca3af;
             padding: 12px 16px;
+            border: 1px solid rgba(124, 105, 239, 0.2);
         }
         
         .btn-secondary:hover {
-            background: #e0e0e0;
+            background: rgba(124, 105, 239, 0.2);
+            color: #ffffff;
         }
         
         .section {
@@ -234,21 +244,26 @@
         
         .section-header h2 {
             font-size: 2.5em;
-            color: white;
+            background: linear-gradient(135deg, #7c69ef 0%, #9b88ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
             margin-bottom: 15px;
         }
         
         .section-header p {
-            color: rgba(255, 255, 255, 0.9);
+            color: #9ca3af;
             font-size: 1.1em;
         }
         
         .requirements-table {
-            background: white;
+            background: rgba(26, 26, 46, 0.8);
+            border: 1px solid rgba(124, 105, 239, 0.2);
             border-radius: 15px;
             padding: 30px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
             overflow-x: auto;
+            backdrop-filter: blur(10px);
         }
         
         table {
@@ -259,15 +274,20 @@
         th {
             text-align: left;
             padding: 15px;
-            background: #f8f9fa;
-            color: #333;
+            background: rgba(124, 105, 239, 0.1);
+            color: #ffffff;
             font-weight: 600;
-            border-bottom: 2px solid #e0e0e0;
+            border-bottom: 2px solid rgba(124, 105, 239, 0.2);
         }
         
         td {
             padding: 15px;
-            border-bottom: 1px solid #f0f0f0;
+            border-bottom: 1px solid rgba(124, 105, 239, 0.1);
+            color: #9ca3af;
+        }
+        
+        td strong {
+            color: #ffffff;
         }
         
         .vram-badge {
@@ -279,26 +299,27 @@
         }
         
         .vram-low {
-            background: #d4edda;
-            color: #155724;
+            background: rgba(72, 187, 120, 0.2);
+            color: #48bb78;
         }
         
         .vram-medium {
-            background: #fff3cd;
-            color: #856404;
+            background: rgba(250, 204, 21, 0.2);
+            color: #facc15;
         }
         
         .vram-high {
-            background: #f8d7da;
-            color: #721c24;
+            background: rgba(239, 68, 68, 0.2);
+            color: #ef4444;
         }
         
         .footer {
-            background: rgba(0, 0, 0, 0.2);
-            color: white;
+            background: rgba(15, 15, 30, 0.8);
+            color: #9ca3af;
             text-align: center;
             padding: 30px 20px;
             margin-top: 60px;
+            border-top: 1px solid rgba(124, 105, 239, 0.2);
         }
         
         .footer a {

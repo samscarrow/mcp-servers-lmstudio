@@ -1,0 +1,5 @@
+theme: jekyll-theme-minimal
+title: LM Studio MCP Servers
+description: One-click installers for Model Context Protocol servers
+show_downloads: true
+google_analytics:

@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Install LM Studio MCP Server - One Click</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .installer-card {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            max-width: 600px;
+            width: 100%;
+            padding: 40px;
+            text-align: center;
+        }
+        
+        .logo {
+            font-size: 4em;
+            margin-bottom: 20px;
+        }
+        
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 2.2em;
+        }
+        
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+        
+        .features {
+            text-align: left;
+            background: #f8f9ff;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+        
+        .features h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+        }
+        
+        .features ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .features li {
+            padding: 8px 0;
+            padding-left: 25px;
+            position: relative;
+        }
+        
+        .features li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #48bb78;
+            font-weight: bold;
+        }
+        
+        .install-section {
+            margin: 30px 0;
+        }
+        
+        .install-button {
+            display: inline-block;
+            padding: 20px 40px;
+            background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 12px;
+            font-size: 1.3em;
+            font-weight: 600;
+            transition: all 0.3s;
+            box-shadow: 0 10px 20px rgba(72, 187, 120, 0.3);
+            cursor: pointer;
+            border: none;
+        }
+        
+        .install-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 30px rgba(72, 187, 120, 0.4);
+        }
+        
+        .install-button:active {
+            transform: translateY(0);
+        }
+        
+        .status {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 8px;
+            display: none;
+        }
+        
+        .status.success {
+            background: #f0fdf4;
+            color: #166534;
+            border: 1px solid #86efac;
+            display: block;
+        }
+        
+        .status.error {
+            background: #fef2f2;
+            color: #991b1b;
+            border: 1px solid #fca5a5;
+            display: block;
+        }
+        
+        .config-details {
+            margin-top: 30px;
+            padding-top: 30px;
+            border-top: 2px solid #f0f0f0;
+        }
+        
+        .config-details h3 {
+            color: #666;
+            margin-bottom: 15px;
+            font-size: 1.1em;
+        }
+        
+        .config-box {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85em;
+            text-align: left;
+            overflow-x: auto;
+            margin: 10px 0;
+        }
+        
+        .alternative-methods {
+            margin-top: 30px;
+            padding: 20px;
+            background: #f0f9ff;
+            border-radius: 10px;
+            text-align: left;
+        }
+        
+        .alternative-methods h3 {
+            color: #2563eb;
+            margin-bottom: 15px;
+        }
+        
+        .method {
+            margin: 15px 0;
+            padding: 10px;
+            background: white;
+            border-radius: 6px;
+        }
+        
+        .method-title {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 5px;
+        }
+        
+        .method-code {
+            background: #f3f4f6;
+            padding: 8px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 0.9em;
+            margin-top: 5px;
+            overflow-x: auto;
+        }
+        
+        .warning {
+            background: #fff5f5;
+            border: 2px solid #feb2b2;
+            color: #c53030;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            text-align: left;
+        }
+        
+        .warning strong {
+            display: block;
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="installer-card">
+        <div class="logo">🚀</div>
+        <h1>LM Studio MCP Server</h1>
+        <p class="subtitle">Enable models to collaborate and query each other</p>
+        
+        <div class="features">
+            <h3>What this enables:</h3>
+            <ul>
+                <li>Query multiple models concurrently</li>
+                <li>Models can call other models for help</li>
+                <li>True async operations with connection pooling</li>
+                <li>Self-referential AI capabilities</li>
+                <li>Tool use with 100% effectiveness (14B+ models)</li>
+            </ul>
+        </div>
+        
+        <div class="install-section">
+            <button class="install-button" onclick="installMCP()">
+                🎯 Install in LM Studio
+            </button>
+            
+            <div id="status" class="status"></div>
+        </div>
+        
+        <div class="config-details">
+            <h3>Configuration to be installed:</h3>
+            <div class="config-box" id="configDisplay"></div>
+        </div>
+        
+        <div class="alternative-methods">
+            <h3>Alternative Installation Methods:</h3>
+            
+            <div class="method">
+                <div class="method-title">Method 1: Direct Deeplink</div>
+                <div class="method-code" id="deeplinkDisplay"></div>
+            </div>
+            
+            <div class="method">
+                <div class="method-title">Method 2: Manual Configuration</div>
+                <div class="method-code">Add to ~/.lmstudio/mcp.json in the mcpServers section</div>
+            </div>
+            
+            <div class="method">
+                <div class="method-title">Method 3: Command Line</div>
+                <div class="method-code" id="cliDisplay"></div>
+            </div>
+        </div>
+        
+        <div class="warning">
+            <strong>⚠️ Security Notice:</strong>
+            This MCP server is from your local installation and will have access to execute Python code and make network requests to your LM Studio instance.
+        </div>
+    </div>
+    
+    <script>
+        // Configuration for the LM Studio MCP server
+        const serverName = "lmstudio-concurrent";
+        const config = {
+            command: "/Users/samscarrow/miniconda3/bin/python3",
+            args: ["/Users/samscarrow/claude-workspace/sandbox/lmstudio-mcp-consolidated/lmstudio_bridge.py"],
+            env: {
+                LMSTUDIO_API_BASE: "http://192.168.50.136:1234/v1"
+            }
+        };
+        
+        // Display configuration
+        document.getElementById('configDisplay').textContent = JSON.stringify({
+            [serverName]: config
+        }, null, 2);
+        
+        // Generate and display deeplink
+        const configBase64 = btoa(JSON.stringify(config));
+        const deeplink = `lmstudio://add_mcp?name=${encodeURIComponent(serverName)}&config=${encodeURIComponent(configBase64)}`;
+        
+        document.getElementById('deeplinkDisplay').textContent = deeplink;
+        
+        // Display CLI command
+        const cliCommand = `lmstudio mcp add-json '${serverName}' '${JSON.stringify(config)}'`;
+        document.getElementById('cliDisplay').textContent = cliCommand;
+        
+        function installMCP() {
+            const statusDiv = document.getElementById('status');
+            
+            // Show installing status
+            statusDiv.className = 'status success';
+            statusDiv.innerHTML = '🔄 Opening LM Studio for installation...';
+            
+            // Attempt to open the deeplink
+            window.location.href = deeplink;
+            
+            // Update status after a delay
+            setTimeout(() => {
+                statusDiv.innerHTML = `
+                    ✅ Installation link opened!<br>
+                    <small>Please check LM Studio and confirm the installation prompt.</small>
+                `;
+            }, 2000);
+            
+            // Handle if the deeplink doesn't work
+            setTimeout(() => {
+                if (document.hasFocus()) {
+                    statusDiv.className = 'status error';
+                    statusDiv.innerHTML = `
+                        ⚠️ If LM Studio didn't open, please:<br>
+                        1. Copy the deeplink URL from below<br>
+                        2. Paste it in your browser's address bar<br>
+                        3. Or use one of the alternative methods
+                    `;
+                }
+            }, 5000);
+        }
+        
+        // Copy functionality for the configuration
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                alert('Copied to clipboard!');
+            });
+        }
+        
+        // Add click-to-copy functionality
+        document.getElementById('configDisplay').onclick = function() {
+            copyToClipboard(this.textContent);
+        };
+        
+        document.getElementById('deeplinkDisplay').onclick = function() {
+            copyToClipboard(this.textContent);
+        };
+        
+        document.getElementById('cliDisplay').onclick = function() {
+            copyToClipboard(this.textContent);
+        };
+        
+        // Add visual feedback for copyable elements
+        ['configDisplay', 'deeplinkDisplay', 'cliDisplay'].forEach(id => {
+            const element = document.getElementById(id);
+            element.style.cursor = 'pointer';
+            element.title = 'Click to copy';
+        });
+    </script>
+</body>
+</html>

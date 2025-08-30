@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LM Studio MCP Servers - One-Click Installation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 20px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .logo-icon {
+            font-size: 2.5em;
+        }
+        
+        .logo-text h1 {
+            font-size: 1.8em;
+            color: #333;
+        }
+        
+        .logo-text p {
+            color: #666;
+            font-size: 0.9em;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+        
+        .nav-links a {
+            color: #666;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: #667eea;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        .hero {
+            text-align: center;
+            color: white;
+            padding: 60px 20px;
+        }
+        
+        .hero h2 {
+            font-size: 3em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .hero p {
+            font-size: 1.3em;
+            opacity: 0.95;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .servers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .server-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .server-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+        }
+        
+        .server-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .server-icon {
+            font-size: 2.5em;
+        }
+        
+        .server-title h3 {
+            font-size: 1.4em;
+            color: #333;
+            margin-bottom: 5px;
+        }
+        
+        .server-badge {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.75em;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        
+        .badge-production {
+            background: #e6f7ff;
+            color: #1890ff;
+        }
+        
+        .badge-beta {
+            background: #fff7e6;
+            color: #fa8c16;
+        }
+        
+        .badge-alpha {
+            background: #fff1f0;
+            color: #f5222d;
+        }
+        
+        .server-description {
+            color: #666;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+        
+        .server-features {
+            list-style: none;
+            margin-bottom: 25px;
+        }
+        
+        .server-features li {
+            padding: 8px 0;
+            color: #555;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .server-features li:before {
+            content: "✓";
+            color: #48bb78;
+            font-weight: bold;
+        }
+        
+        .server-actions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .btn {
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s;
+            cursor: pointer;
+            border: none;
+            font-size: 1em;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+            color: white;
+            flex: 1;
+            justify-content: center;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(72, 187, 120, 0.4);
+        }
+        
+        .btn-secondary {
+            background: #f0f0f0;
+            color: #666;
+            padding: 12px 16px;
+        }
+        
+        .btn-secondary:hover {
+            background: #e0e0e0;
+        }
+        
+        .section {
+            margin-top: 60px;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .section-header h2 {
+            font-size: 2.5em;
+            color: white;
+            margin-bottom: 15px;
+        }
+        
+        .section-header p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.1em;
+        }
+        
+        .requirements-table {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            overflow-x: auto;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        th {
+            text-align: left;
+            padding: 15px;
+            background: #f8f9fa;
+            color: #333;
+            font-weight: 600;
+            border-bottom: 2px solid #e0e0e0;
+        }
+        
+        td {
+            padding: 15px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .vram-badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.9em;
+        }
+        
+        .vram-low {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .vram-medium {
+            background: #fff3cd;
+            color: #856404;
+        }
+        
+        .vram-high {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        
+        .footer {
+            background: rgba(0, 0, 0, 0.2);
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 60px;
+        }
+        
+        .footer a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .footer a:hover {
+            text-decoration: underline;
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .hero h2 {
+                font-size: 2em;
+            }
+            
+            .servers-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <span class="logo-icon">🚀</span>
+                <div class="logo-text">
+                    <h1>LM Studio MCP Servers</h1>
+                    <p>One-click installation for Model Context Protocol</p>
+                </div>
+            </div>
+            <nav class="nav-links">
+                <a href="#servers">Servers</a>
+                <a href="#requirements">Requirements</a>
+                <a href="https://github.com/samscarrow/mcp-servers-lmstudio">GitHub</a>
+            </nav>
+        </div>
+    </header>
+    
+    <section class="hero">
+        <h2>Enable Your Models to Collaborate</h2>
+        <p>Install MCP servers with one click and let your LM Studio models query each other, work in parallel, and access external tools.</p>
+    </section>
+    
+    <div class="container" id="servers">
+        <div class="servers-grid">
+            <!-- Concurrent Multi-Agent Server -->
+            <div class="server-card">
+                <div class="server-header">
+                    <span class="server-icon">🔄</span>
+                    <div class="server-title">
+                        <h3>Concurrent Multi-Agent</h3>
+                        <span class="server-badge badge-production">Production</span>
+                    </div>
+                </div>
+                <p class="server-description">
+                    Query multiple models simultaneously with true async operations and connection pooling. Perfect for comparing responses or getting diverse perspectives.
+                </p>
+                <ul class="server-features">
+                    <li>Query up to 10 models concurrently</li>
+                    <li>Connection pooling for efficiency</li>
+                    <li>Automatic retry on failures</li>
+                    <li>1.18x faster than sequential</li>
+                </ul>
+                <div class="server-actions">
+                    <a href="installers/concurrent.html" class="btn btn-primary">
+                        🎯 Install
+                    </a>
+                    <a href="docs/concurrent.md" class="btn btn-secondary">
+                        📖 Docs
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Code Reviewer Server -->
+            <div class="server-card">
+                <div class="server-header">
+                    <span class="server-icon">🔍</span>
+                    <div class="server-title">
+                        <h3>Code Reviewer</h3>
+                        <span class="server-badge badge-production">Production</span>
+                    </div>
+                </div>
+                <p class="server-description">
+                    Automated code review using 30B+ models. Analyzes code for security issues, performance problems, and best practices.
+                </p>
+                <ul class="server-features">
+                    <li>Security vulnerability detection</li>
+                    <li>Performance optimization tips</li>
+                    <li>Architecture analysis</li>
+                    <li>Batch file processing</li>
+                </ul>
+                <div class="server-actions">
+                    <a href="installers/code-reviewer.html" class="btn btn-primary">
+                        🎯 Install
+                    </a>
+                    <a href="docs/code-reviewer.md" class="btn btn-secondary">
+                        📖 Docs
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Oracle Database Server -->
+            <div class="server-card">
+                <div class="server-header">
+                    <span class="server-icon">🗄️</span>
+                    <div class="server-title">
+                        <h3>Oracle Database</h3>
+                        <span class="server-badge badge-production">Production</span>
+                    </div>
+                </div>
+                <p class="server-description">
+                    Connect your LM Studio models directly to Oracle databases. Execute queries, analyze schemas, and generate reports.
+                </p>
+                <ul class="server-features">
+                    <li>Execute SQL queries</li>
+                    <li>Schema exploration</li>
+                    <li>Table analysis</li>
+                    <li>Connection pooling</li>
+                </ul>
+                <div class="server-actions">
+                    <a href="installers/oracle.html" class="btn btn-primary">
+                        🎯 Install
+                    </a>
+                    <a href="docs/oracle.md" class="btn btn-secondary">
+                        📖 Docs
+                    </a>
+                </div>
+            </div>
+            
+            <!-- MongoDB Server -->
+            <div class="server-card">
+                <div class="server-header">
+                    <span class="server-icon">🍃</span>
+                    <div class="server-title">
+                        <h3>MongoDB</h3>
+                        <span class="server-badge badge-production">Production</span>
+                    </div>
+                </div>
+                <p class="server-description">
+                    Perform MongoDB operations directly from your models. Query collections, aggregate data, and manage documents.
+                </p>
+                <ul class="server-features">
+                    <li>CRUD operations</li>
+                    <li>Aggregation pipelines</li>
+                    <li>Collection management</li>
+                    <li>Index optimization</li>
+                </ul>
+                <div class="server-actions">
+                    <a href="installers/mongodb.html" class="btn btn-primary">
+                        🎯 Install
+                    </a>
+                    <a href="docs/mongodb.md" class="btn btn-secondary">
+                        📖 Docs
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Agent Orchestrator -->
+            <div class="server-card">
+                <div class="server-header">
+                    <span class="server-icon">🎭</span>
+                    <div class="server-title">
+                        <h3>Agent Orchestrator</h3>
+                        <span class="server-badge badge-beta">Beta</span>
+                    </div>
+                </div>
+                <p class="server-description">
+                    Coordinate multiple specialized agents with different roles. Automatically route tasks to the best model for each job.
+                </p>
+                <ul class="server-features">
+                    <li>Role-based agent assignment</li>
+                    <li>Task routing logic</li>
+                    <li>Agent collaboration</li>
+                    <li>Result aggregation</li>
+                </ul>
+                <div class="server-actions">
+                    <a href="installers/orchestrator.html" class="btn btn-primary">
+                        🧪 Install Beta
+                    </a>
+                    <a href="docs/orchestrator.md" class="btn btn-secondary">
+                        📖 Docs
+                    </a>
+                </div>
+            </div>
+            
+            <!-- VRAM Manager -->
+            <div class="server-card">
+                <div class="server-header">
+                    <span class="server-icon">💾</span>
+                    <div class="server-title">
+                        <h3>VRAM Manager</h3>
+                        <span class="server-badge badge-alpha">Alpha</span>
+                    </div>
+                </div>
+                <p class="server-description">
+                    Automatically manage model loading and unloading to stay within VRAM limits. Run more models than your GPU can hold.
+                </p>
+                <ul class="server-features">
+                    <li>JIT model loading</li>
+                    <li>Auto-unload unused models</li>
+                    <li>VRAM monitoring</li>
+                    <li>33GB limit enforcement</li>
+                </ul>
+                <div class="server-actions">
+                    <a href="installers/vram-manager.html" class="btn btn-primary">
+                        🧪 Install Alpha
+                    </a>
+                    <a href="docs/vram-manager.md" class="btn btn-secondary">
+                        📖 Docs
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="container section" id="requirements">
+        <div class="section-header">
+            <h2>📊 Model Requirements</h2>
+            <p>Choose the right model size for your use case</p>
+        </div>
+        
+        <div class="requirements-table">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Task Complexity</th>
+                        <th>Minimum Model</th>
+                        <th>VRAM Usage</th>
+                        <th>Best For</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Simple Tasks</strong></td>
+                        <td>qwen2.5-coder-14b</td>
+                        <td><span class="vram-badge vram-low">8.5 GB</span></td>
+                        <td>Basic function calls, single tool operations, simple automation</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Medium Complexity</strong></td>
+                        <td>codestral-22b</td>
+                        <td><span class="vram-badge vram-medium">13.5 GB</span></td>
+                        <td>Multi-step workflows, sequential logic, conditional operations</td>
+                    </tr>
+                    <tr>
+                        <td><strong>High Complexity</strong></td>
+                        <td>qwen3-coder-30b</td>
+                        <td><span class="vram-badge vram-high">18 GB</span></td>
+                        <td>Nested workflows, dynamic tool selection, complex reasoning</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Expert Level</strong></td>
+                        <td>qwen3-32b</td>
+                        <td><span class="vram-badge vram-high">19.5 GB</span></td>
+                        <td>Error handling, retry logic, production-grade systems</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+    <footer class="footer">
+        <p>Made with ❤️ by the LM Studio community</p>
+        <p style="margin-top: 10px;">
+            <a href="https://github.com/samscarrow/mcp-servers-lmstudio">GitHub</a> • 
+            <a href="https://lmstudio.ai">LM Studio</a> • 
+            <a href="https://discord.gg/lmstudio">Discord</a>
+        </p>
+    </footer>
+</body>
+</html>

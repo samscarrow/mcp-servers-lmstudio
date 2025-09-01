@@ -3,598 +3,173 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LM Studio MCP Servers - One-Click Installation</title>
+    <title>LM Studio MCP Installers</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            background: linear-gradient(135deg, #1a1a2e 0%, #0f0f1e 100%);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
+            color: white;
         }
         
         .header {
-            background: rgba(26, 26, 46, 0.98);
-            padding: 20px 0;
-            box-shadow: 0 2px 20px rgba(0,0,0,0.5);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            border-bottom: 1px solid rgba(124, 105, 239, 0.2);
-        }
-        
-        .header-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-        
-        .logo-icon {
-            font-size: 2.5em;
-        }
-        
-        .logo-text h1 {
-            font-size: 1.8em;
-            color: #ffffff;
-            font-weight: 600;
-        }
-        
-        .logo-text p {
-            color: #9ca3af;
-            font-size: 0.9em;
-        }
-        
-        .nav-links {
-            display: flex;
-            gap: 30px;
-        }
-        
-        .nav-links a {
-            color: #9ca3af;
-            text-decoration: none;
-            font-weight: 500;
-            transition: color 0.3s;
-        }
-        
-        .nav-links a:hover {
-            color: #7c69ef;
-        }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 40px 20px;
-        }
-        
-        .hero {
             text-align: center;
-            color: white;
-            padding: 60px 20px;
+            margin-bottom: 50px;
         }
         
-        .hero h2 {
-            font-size: 3em;
+        .header h1 {
+            font-size: 3rem;
             margin-bottom: 20px;
-            background: linear-gradient(135deg, #7c69ef 0%, #9b88ff 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
         }
         
-        .hero p {
-            font-size: 1.3em;
-            color: #9ca3af;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-        
-        .servers-grid {
+        .installers-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
             gap: 30px;
-            margin-top: 40px;
         }
         
-        .server-card {
-            background: rgba(26, 26, 46, 0.8);
-            border: 1px solid rgba(124, 105, 239, 0.2);
-            border-radius: 15px;
+        .installer-card {
+            background: rgba(255, 255, 255, 0.95);
+            color: #333;
+            border-radius: 20px;
             padding: 30px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
-            transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
-            backdrop-filter: blur(10px);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            transition: transform 0.3s ease;
         }
         
-        .server-card:hover {
+        .installer-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 20px 60px rgba(124, 105, 239, 0.2);
-            border-color: rgba(124, 105, 239, 0.4);
         }
         
-        .server-header {
-            display: flex;
-            align-items: center;
-            gap: 15px;
+        .installer-icon {
+            font-size: 3rem;
             margin-bottom: 20px;
+            text-align: center;
         }
         
-        .server-icon {
-            font-size: 2.5em;
+        .installer-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: #1a1a1a;
         }
         
-        .server-title h3 {
-            font-size: 1.4em;
-            color: #ffffff;
-            margin-bottom: 5px;
-        }
-        
-        .server-badge {
-            display: inline-block;
-            padding: 3px 8px;
-            border-radius: 4px;
-            font-size: 0.75em;
-            font-weight: 600;
-            text-transform: uppercase;
-        }
-        
-        .badge-production {
-            background: rgba(124, 105, 239, 0.2);
-            color: #7c69ef;
-        }
-        
-        .badge-beta {
-            background: rgba(250, 140, 22, 0.2);
-            color: #fa8c16;
-        }
-        
-        .badge-alpha {
-            background: rgba(245, 34, 45, 0.2);
-            color: #f5222d;
-        }
-        
-        .server-description {
-            color: #9ca3af;
-            margin-bottom: 20px;
+        .installer-description {
+            margin-bottom: 25px;
+            color: #666;
             line-height: 1.6;
         }
         
-        .server-features {
-            list-style: none;
-            margin-bottom: 25px;
-        }
-        
-        .server-features li {
-            padding: 8px 0;
-            color: #9ca3af;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .server-features li:before {
-            content: "✓";
-            color: #7c69ef;
-            font-weight: bold;
-        }
-        
-        .server-actions {
-            display: flex;
-            gap: 10px;
-        }
-        
-        .btn {
-            padding: 12px 24px;
-            border-radius: 8px;
-            font-weight: 600;
-            text-decoration: none;
-            transition: all 0.3s;
-            cursor: pointer;
-            border: none;
-            font-size: 1em;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-        }
-        
-        .btn-primary {
-            background: linear-gradient(135deg, #7c69ef 0%, #9b88ff 100%);
-            color: white;
-            flex: 1;
-            justify-content: center;
-        }
-        
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(124, 105, 239, 0.4);
-        }
-        
-        .btn-secondary {
-            background: rgba(124, 105, 239, 0.1);
-            color: #9ca3af;
-            padding: 12px 16px;
-            border: 1px solid rgba(124, 105, 239, 0.2);
-        }
-        
-        .btn-secondary:hover {
-            background: rgba(124, 105, 239, 0.2);
-            color: #ffffff;
-        }
-        
-        .section {
-            margin-top: 60px;
-        }
-        
-        .section-header {
-            text-align: center;
-            margin-bottom: 40px;
-        }
-        
-        .section-header h2 {
-            font-size: 2.5em;
-            background: linear-gradient(135deg, #7c69ef 0%, #9b88ff 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 15px;
-        }
-        
-        .section-header p {
-            color: #9ca3af;
-            font-size: 1.1em;
-        }
-        
-        .requirements-table {
-            background: rgba(26, 26, 46, 0.8);
-            border: 1px solid rgba(124, 105, 239, 0.2);
-            border-radius: 15px;
-            padding: 30px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
-            overflow-x: auto;
-            backdrop-filter: blur(10px);
-        }
-        
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        
-        th {
-            text-align: left;
-            padding: 15px;
-            background: rgba(124, 105, 239, 0.1);
-            color: #ffffff;
-            font-weight: 600;
-            border-bottom: 2px solid rgba(124, 105, 239, 0.2);
-        }
-        
-        td {
-            padding: 15px;
-            border-bottom: 1px solid rgba(124, 105, 239, 0.1);
-            color: #9ca3af;
-        }
-        
-        td strong {
-            color: #ffffff;
-        }
-        
-        .vram-badge {
+        .install-btn {
             display: inline-block;
-            padding: 4px 10px;
-            border-radius: 6px;
+            width: 100%;
+            padding: 15px 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 12px;
+            text-align: center;
             font-weight: 600;
-            font-size: 0.9em;
+            transition: all 0.3s ease;
         }
         
-        .vram-low {
-            background: rgba(72, 187, 120, 0.2);
-            color: #48bb78;
+        .install-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.2);
         }
         
-        .vram-medium {
-            background: rgba(250, 204, 21, 0.2);
-            color: #facc15;
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 15px;
         }
         
-        .vram-high {
-            background: rgba(239, 68, 68, 0.2);
-            color: #ef4444;
+        .tag {
+            background: #e5e7eb;
+            color: #374151;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.8rem;
         }
         
         .footer {
-            background: rgba(15, 15, 30, 0.8);
-            color: #9ca3af;
             text-align: center;
-            padding: 30px 20px;
-            margin-top: 60px;
-            border-top: 1px solid rgba(124, 105, 239, 0.2);
-        }
-        
-        .footer a {
-            color: white;
-            text-decoration: none;
-            font-weight: 500;
-        }
-        
-        .footer a:hover {
-            text-decoration: underline;
-        }
-        
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-            }
-            
-            .hero h2 {
-                font-size: 2em;
-            }
-            
-            .servers-grid {
-                grid-template-columns: 1fr;
-            }
+            margin-top: 50px;
+            opacity: 0.8;
         }
     </style>
 </head>
 <body>
-    <header class="header">
-        <div class="header-content">
-            <div class="logo">
-                <span class="logo-icon">🚀</span>
-                <div class="logo-text">
-                    <h1>LM Studio MCP Servers</h1>
-                    <p>One-click installation for Model Context Protocol</p>
-                </div>
+    <div class="header">
+        <h1>🚀 LM Studio MCP Installers</h1>
+        <p>Choose your preferred installation method - all provide everything needed to run!</p>
+    </div>
+    
+    <div class="installers-grid">
+        <div class="installer-card">
+            <div class="installer-icon">📦</div>
+            <div class="installer-title">GitHub Direct</div>
+            <div class="installer-description">Install directly from GitHub using UVX - no local setup required</div>
+            <a href="https://samscarrow.github.io/mcp-servers-lmstudio/github-direct-installer.html" class="install-btn">
+                Install with GitHub Direct
+            </a>
+            <div class="tags">
+                <span class="tag">zero-setup</span><span class="tag">uvx</span><span class="tag">recommended</span>
             </div>
-            <nav class="nav-links">
-                <a href="#servers">Servers</a>
-                <a href="#requirements">Requirements</a>
-                <a href="https://github.com/samscarrow/mcp-servers-lmstudio">GitHub</a>
-            </nav>
         </div>
-    </header>
-    
-    <section class="hero">
-        <h2>Enable Your Models to Collaborate</h2>
-        <p>Install MCP servers with one click and let your LM Studio models query each other, work in parallel, and access external tools.</p>
-    </section>
-    
-    <div class="container" id="servers">
-        <div class="servers-grid">
-            <!-- Concurrent Multi-Agent Server -->
-            <div class="server-card">
-                <div class="server-header">
-                    <span class="server-icon">🔄</span>
-                    <div class="server-title">
-                        <h3>Concurrent Multi-Agent</h3>
-                        <span class="server-badge badge-production">Production</span>
-                    </div>
-                </div>
-                <p class="server-description">
-                    Query multiple models simultaneously with true async operations and connection pooling. Perfect for comparing responses or getting diverse perspectives.
-                </p>
-                <ul class="server-features">
-                    <li>Query up to 10 models concurrently</li>
-                    <li>Connection pooling for efficiency</li>
-                    <li>Automatic retry on failures</li>
-                    <li>1.18x faster than sequential</li>
-                </ul>
-                <div class="server-actions">
-                    <a href="installers/concurrent.html" class="btn btn-primary">
-                        🎯 Install
-                    </a>
-                    <a href="docs/concurrent.md" class="btn btn-secondary">
-                        📖 Docs
-                    </a>
-                </div>
+        <div class="installer-card">
+            <div class="installer-icon">🐳</div>
+            <div class="installer-title">Docker</div>
+            <div class="installer-description">Containerized solution with complete isolation</div>
+            <a href="https://samscarrow.github.io/mcp-servers-lmstudio/docker-installer.html" class="install-btn">
+                Install with Docker
+            </a>
+            <div class="tags">
+                <span class="tag">docker</span><span class="tag">isolated</span><span class="tag">production</span>
             </div>
-            
-            <!-- Code Reviewer Server -->
-            <div class="server-card">
-                <div class="server-header">
-                    <span class="server-icon">🔍</span>
-                    <div class="server-title">
-                        <h3>Code Reviewer</h3>
-                        <span class="server-badge badge-production">Production</span>
-                    </div>
-                </div>
-                <p class="server-description">
-                    Automated code review using 30B+ models. Analyzes code for security issues, performance problems, and best practices.
-                </p>
-                <ul class="server-features">
-                    <li>Security vulnerability detection</li>
-                    <li>Performance optimization tips</li>
-                    <li>Architecture analysis</li>
-                    <li>Batch file processing</li>
-                </ul>
-                <div class="server-actions">
-                    <a href="installers/code-reviewer.html" class="btn btn-primary">
-                        🎯 Install
-                    </a>
-                    <a href="docs/code-reviewer.md" class="btn btn-secondary">
-                        📖 Docs
-                    </a>
-                </div>
+        </div>
+        <div class="installer-card">
+            <div class="installer-icon">⚡</div>
+            <div class="installer-title">One-Line Install</div>
+            <div class="installer-description">Automated script that sets up everything</div>
+            <a href="https://samscarrow.github.io/mcp-servers-lmstudio/one-line-installer.html" class="install-btn">
+                Install with One-Line Install
+            </a>
+            <div class="tags">
+                <span class="tag">auto-install</span><span class="tag">script</span><span class="tag">fast</span>
             </div>
-            
-            <!-- Oracle Database Server -->
-            <div class="server-card">
-                <div class="server-header">
-                    <span class="server-icon">🗄️</span>
-                    <div class="server-title">
-                        <h3>Oracle Database</h3>
-                        <span class="server-badge badge-production">Production</span>
-                    </div>
-                </div>
-                <p class="server-description">
-                    Connect your LM Studio models directly to Oracle databases. Execute queries, analyze schemas, and generate reports.
-                </p>
-                <ul class="server-features">
-                    <li>Execute SQL queries</li>
-                    <li>Schema exploration</li>
-                    <li>Table analysis</li>
-                    <li>Connection pooling</li>
-                </ul>
-                <div class="server-actions">
-                    <a href="installers/oracle.html" class="btn btn-primary">
-                        🎯 Install
-                    </a>
-                    <a href="docs/oracle.md" class="btn btn-secondary">
-                        📖 Docs
-                    </a>
-                </div>
+        </div>
+        <div class="installer-card">
+            <div class="installer-icon">🔧</div>
+            <div class="installer-title">Local Development</div>
+            <div class="installer-description">For developers who want to modify source code</div>
+            <a href="https://samscarrow.github.io/mcp-servers-lmstudio/local-dev-installer.html" class="install-btn">
+                Install with Local Development
+            </a>
+            <div class="tags">
+                <span class="tag">development</span><span class="tag">source</span><span class="tag">customizable</span>
             </div>
-            
-            <!-- MongoDB Server -->
-            <div class="server-card">
-                <div class="server-header">
-                    <span class="server-icon">🍃</span>
-                    <div class="server-title">
-                        <h3>MongoDB</h3>
-                        <span class="server-badge badge-production">Production</span>
-                    </div>
-                </div>
-                <p class="server-description">
-                    Perform MongoDB operations directly from your models. Query collections, aggregate data, and manage documents.
-                </p>
-                <ul class="server-features">
-                    <li>CRUD operations</li>
-                    <li>Aggregation pipelines</li>
-                    <li>Collection management</li>
-                    <li>Index optimization</li>
-                </ul>
-                <div class="server-actions">
-                    <a href="installers/mongodb.html" class="btn btn-primary">
-                        🎯 Install
-                    </a>
-                    <a href="docs/mongodb.md" class="btn btn-secondary">
-                        📖 Docs
-                    </a>
-                </div>
-            </div>
-            
-            <!-- Agent Orchestrator -->
-            <div class="server-card">
-                <div class="server-header">
-                    <span class="server-icon">🎭</span>
-                    <div class="server-title">
-                        <h3>Agent Orchestrator</h3>
-                        <span class="server-badge badge-beta">Beta</span>
-                    </div>
-                </div>
-                <p class="server-description">
-                    Coordinate multiple specialized agents with different roles. Automatically route tasks to the best model for each job.
-                </p>
-                <ul class="server-features">
-                    <li>Role-based agent assignment</li>
-                    <li>Task routing logic</li>
-                    <li>Agent collaboration</li>
-                    <li>Result aggregation</li>
-                </ul>
-                <div class="server-actions">
-                    <a href="installers/orchestrator.html" class="btn btn-primary">
-                        🧪 Install Beta
-                    </a>
-                    <a href="docs/orchestrator.md" class="btn btn-secondary">
-                        📖 Docs
-                    </a>
-                </div>
-            </div>
-            
-            <!-- VRAM Manager -->
-            <div class="server-card">
-                <div class="server-header">
-                    <span class="server-icon">💾</span>
-                    <div class="server-title">
-                        <h3>VRAM Manager</h3>
-                        <span class="server-badge badge-alpha">Alpha</span>
-                    </div>
-                </div>
-                <p class="server-description">
-                    Automatically manage model loading and unloading to stay within VRAM limits. Run more models than your GPU can hold.
-                </p>
-                <ul class="server-features">
-                    <li>JIT model loading</li>
-                    <li>Auto-unload unused models</li>
-                    <li>VRAM monitoring</li>
-                    <li>33GB limit enforcement</li>
-                </ul>
-                <div class="server-actions">
-                    <a href="installers/vram-manager.html" class="btn btn-primary">
-                        🧪 Install Alpha
-                    </a>
-                    <a href="docs/vram-manager.md" class="btn btn-secondary">
-                        📖 Docs
-                    </a>
-                </div>
+        </div>
+        <div class="installer-card">
+            <div class="installer-icon">📦</div>
+            <div class="installer-title">NPX Install</div>
+            <div class="installer-description">For Node.js users - one command setup</div>
+            <a href="https://samscarrow.github.io/mcp-servers-lmstudio/npx-installer.html" class="install-btn">
+                Install with NPX Install
+            </a>
+            <div class="tags">
+                <span class="tag">nodejs</span><span class="tag">npm</span><span class="tag">javascript</span>
             </div>
         </div>
     </div>
     
-    <div class="container section" id="requirements">
-        <div class="section-header">
-            <h2>📊 Model Requirements</h2>
-            <p>Choose the right model size for your use case</p>
-        </div>
-        
-        <div class="requirements-table">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Task Complexity</th>
-                        <th>Minimum Model</th>
-                        <th>VRAM Usage</th>
-                        <th>Best For</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><strong>Simple Tasks</strong></td>
-                        <td>qwen2.5-coder-14b</td>
-                        <td><span class="vram-badge vram-low">8.5 GB</span></td>
-                        <td>Basic function calls, single tool operations, simple automation</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Medium Complexity</strong></td>
-                        <td>codestral-22b</td>
-                        <td><span class="vram-badge vram-medium">13.5 GB</span></td>
-                        <td>Multi-step workflows, sequential logic, conditional operations</td>
-                    </tr>
-                    <tr>
-                        <td><strong>High Complexity</strong></td>
-                        <td>qwen3-coder-30b</td>
-                        <td><span class="vram-badge vram-high">18 GB</span></td>
-                        <td>Nested workflows, dynamic tool selection, complex reasoning</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Expert Level</strong></td>
-                        <td>qwen3-32b</td>
-                        <td><span class="vram-badge vram-high">19.5 GB</span></td>
-                        <td>Error handling, retry logic, production-grade systems</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+    <div class="footer">
+        <p>All installers provide complete, ready-to-run configurations</p>
+        <p><small>Generated by JSON Installer Generator</small></p>
     </div>
-    
-    <footer class="footer">
-        <p>Made with ❤️ by the LM Studio community</p>
-        <p style="margin-top: 10px;">
-            <a href="https://github.com/samscarrow/mcp-servers-lmstudio">GitHub</a> • 
-            <a href="https://lmstudio.ai">LM Studio</a> • 
-            <a href="https://discord.gg/lmstudio">Discord</a>
-        </p>
-    </footer>
 </body>
 </html>

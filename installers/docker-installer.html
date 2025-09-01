@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Install LM Studio MCP (Docker) - LM Studio MCP</title>
+    <meta name="description" content="Containerized MCP server - complete isolation with Docker">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>🚀</text></svg>">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #0066cc 0%, #0052a3 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 600px;
+            padding: 20px;
+            width: 100%;
+        }
+        
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 24px;
+            padding: 48px;
+            box-shadow: 0 32px 80px rgba(0,0,0,0.15);
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .icon {
+            font-size: 4rem;
+            margin-bottom: 24px;
+        }
+        
+        h1 {
+            color: #1a1a1a;
+            margin-bottom: 16px;
+            font-size: 2.5rem;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+        
+        .version {
+            display: inline-block;
+            background: #0066cc;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 16px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-bottom: 20px;
+        }
+        
+        .description {
+            color: #666;
+            margin-bottom: 32px;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+        
+        .install-section {
+            margin: 32px 0;
+        }
+        
+        .install-btn {
+            display: inline-block;
+            padding: 18px 36px;
+            background: linear-gradient(135deg, #0066cc 0%, #0052a3 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 12px;
+            font-size: 1.2em;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+        }
+        
+        .install-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 32px rgba(0,0,0,0.2);
+        }
+        
+        .install-btn:active {
+            transform: translateY(0);
+        }
+        
+        .prerequisites {
+            background: #f8fafb;
+            border-radius: 16px;
+            padding: 24px;
+            margin: 32px 0;
+            text-align: left;
+        }
+        
+        .prerequisites h3 {
+            margin-bottom: 16px;
+            color: #1a1a1a;
+            font-size: 1.2rem;
+        }
+        
+        .prereq-item {
+            display: flex;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        
+        .prereq-item:last-child {
+            border-bottom: none;
+        }
+        
+        .prereq-icon {
+            margin-right: 12px;
+            font-size: 1.2rem;
+        }
+        
+        .config-section {
+            background: #f8fafb;
+            border-radius: 16px;
+            padding: 24px;
+            margin: 32px 0;
+            text-align: left;
+        }
+        
+        .config-section h3 {
+            margin-bottom: 16px;
+            color: #1a1a1a;
+        }
+        
+        .config-code {
+            background: #1a1a1a;
+            color: #e5e7eb;
+            padding: 20px;
+            border-radius: 12px;
+            font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
+            font-size: 0.9rem;
+            overflow-x: auto;
+            line-height: 1.5;
+        }
+        
+        .metadata {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin: 32px 0;
+            padding: 24px;
+            background: #f8fafb;
+            border-radius: 16px;
+        }
+        
+        .metadata-item {
+            text-align: center;
+        }
+        
+        .metadata-label {
+            display: block;
+            font-size: 0.85rem;
+            color: #666;
+            margin-bottom: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .metadata-value {
+            font-weight: 600;
+            color: #1a1a1a;
+        }
+        
+        .metadata-value a {
+            color: #0066cc;
+            text-decoration: none;
+        }
+        
+        .warning {
+            background: linear-gradient(135deg, #fef2f2 0%, #fef7f7 100%);
+            border: 1px solid #fecaca;
+            color: #991b1b;
+            padding: 20px;
+            border-radius: 12px;
+            margin: 24px 0;
+            font-size: 0.95rem;
+        }
+        
+        .success-message {
+            background: linear-gradient(135deg, #f0fdf4 0%, #f7fef7 100%);
+            border: 1px solid #bbf7d0;
+            color: #166534;
+            padding: 20px;
+            border-radius: 12px;
+            margin: 16px 0;
+            font-size: 0.95rem;
+        }
+        
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+            margin: 24px 0;
+        }
+        
+        .tag {
+            background: #e5e7eb;
+            color: #374151;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        
+        @media (max-width: 640px) {
+            .card {
+                padding: 32px 24px;
+                margin: 20px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .metadata {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <div class="icon">🚀</div>
+            <h1>LM Studio MCP (Docker)</h1>
+            
+            <p class="description">Containerized MCP server - complete isolation with Docker</p>
+            
+            
+            </div>
+            
+            
+            <div class="install-section">
+                <a href="lmstudio://add_mcp?name=LM+Studio+MCP+%28Docker%29&config=eyJjb21tYW5kIjogImRvY2tlciIsICJhcmdzIjogWyJydW4iLCAiLWkiLCAiLS1ybSIsICItLW5ldHdvcms9aG9zdCIsICItLW5hbWUiLCAibG1zdHVkaW8tbWNwLXNlcnZlciIsICItZSIsICJMTVNUVURJT19BUElfQkFTRT1odHRwOi8vbG9jYWxob3N0OjEyMzQvdjEiLCAiZ2hjci5pby9zYW1zY2Fycm93L2xtc3R1ZGlvLW1jcDpsYXRlc3QiXX0%3D" class="install-btn" onclick="trackEvent('install_attempt')">
+                    📦 Install in LM Studio
+                </a>
+            </div>
+            
+            ⚪</span>
+                    <div>
+                        <strong>LM Studio MCP (Docker)</strong>
+                        
+                    </div>
+                </div>
+                
+            </div>
+            
+            
+            <div class="config-section">
+                <h3>⚙️ Configuration</h3>
+                <div class="config-code">{
+  "type": "stdio",
+  "command": "docker",
+  "args": [
+    "run",
+    "-i",
+    "--rm",
+    "--network=host",
+    "--name",
+    "lmstudio-mcp-server",
+    "-e",
+    "LMSTUDIO_API_BASE=http://localhost:1234/v1",
+    "ghcr.io/samscarrow/lmstudio-mcp:latest"
+  ]
+}</div>
+            </div>
+            
+            
+                
+                
+                
+            </div>
+            
+            
+            
+            
+            
+            
+            <div class="warning">
+                ⚠️ Only install MCP servers from trusted sources. This installer will modify your LM Studio configuration.
+            </div>
+        </div>
+    </div>
+    
+    
+    </script>
+    
+</body>
+</html>
